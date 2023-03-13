@@ -1,10 +1,13 @@
 import React, { useContext, useEffect } from "react";
 import { DiscussionContext } from "../../context/DiscussionContext";
 import ChatBubble from "./ChatBubble";
+import ChatTyping from "./ChatTyping";
 
-type Props = {};
+type Props = {
+  isTyping?: boolean;
+};
 
-export const Chat: React.FC<Props> = ({}) => {
+export const Chat: React.FC<Props> = ({ isTyping }) => {
   const discussion = useContext(DiscussionContext);
   const chatboxRef = React.useRef<HTMLDivElement>(null);
 
@@ -26,6 +29,8 @@ export const Chat: React.FC<Props> = ({}) => {
         {discussion.messages.map((message) => (
           <ChatBubble key={message.id} message={message} />
         ))}
+
+        {isTyping && <ChatTyping />}
       </div>
     </>
   );

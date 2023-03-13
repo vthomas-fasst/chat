@@ -29,7 +29,7 @@ export class Discussion extends ChatGpt {
     ];
   }
 
-  parseCommand(command: string, args: string[]) {
+  parseCommand(command: Commands, args: string[]) {
     console.log("command", command, args);
     if (command === "clear") {
       this.newDiscussion();

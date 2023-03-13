@@ -9,18 +9,6 @@ type Props = {
 };
 
 export const ChatBubble: React.FC<Props> = ({ message }) => {
-  const messageRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (messageRef.current) {
-      // messageRef.current?.scrollIntoView({ behavior: "smooth" });
-      // messageRef.current?.scrollBy({
-      //   top: messageRef.current.scrollHeight,
-      //   behavior: "smooth",
-      // });
-    }
-  }, [messageRef]);
-
   const chatClasses = classNames("chat", {
     "chat-start": message.user !== "user",
     "chat-end": message.user === "user",
@@ -34,18 +22,17 @@ export const ChatBubble: React.FC<Props> = ({ message }) => {
 
   return (
     <>
-      <div className={chatClasses} ref={messageRef}>
+      <div className={chatClasses}>
         <div className="chat-header">
           {message.user}
           <time className="text-xs opacity-50 pl-2">
-            {DateTime.fromJSDate(message.date).toRelative()}
+            {DateTime.fromJSDate(message.date).toLocaleString(
+              DateTime.TIME_24_SIMPLE
+            )}
           </time>
         </div>
         <div className={bubbleClasses}>
           <ReactMarkdown>{message.text}</ReactMarkdown>
-          {/* {message.text.split("\n").map((partMessage) => (
-            <p>{partMessage}</p>
-          ))} */}
         </div>
       </div>
     </>

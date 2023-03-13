@@ -6,9 +6,13 @@ import { v4 as uuidV4 } from "uuid";
 
 type Props = {
   onSendMessage?: () => void;
+  onMessageReceived?: () => void;
 };
 
-export const ChatInput: React.FC<Props> = ({ onSendMessage }) => {
+export const ChatInput: React.FC<Props> = ({
+  onSendMessage,
+  onMessageReceived,
+}) => {
   const [currentMessage, setCurrentMessage] = useState<string>("");
   const discussion = useContext(DiscussionContext);
 
@@ -23,7 +27,7 @@ export const ChatInput: React.FC<Props> = ({ onSendMessage }) => {
       })
       .then(() => {
         console.log("Message sent");
-        onSendMessage && onSendMessage();
+        onMessageReceived && onMessageReceived();
       });
     setCurrentMessage("");
     onSendMessage && onSendMessage();
